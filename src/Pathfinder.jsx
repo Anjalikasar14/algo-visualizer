@@ -17,7 +17,7 @@ const createGrid = () => {
   )
 }
 
-function Pathfinder() {
+function Pathfinder({ theme = 'light' }) {
   const [grid, setGrid] = useState(createGrid())
   const [algo, setAlgo] = useState('dijkstra')
   const [isRunning, setIsRunning] = useState(false)
@@ -30,8 +30,8 @@ function Pathfinder() {
     if (cell.isEnd) return '#cc0000'
     if (cell.isPath) return '#FFD700'
     if (cell.isVisited) return '#89CFF0'
-    if (cell.isWall) return '#333'
-    return 'white'
+    if (cell.isWall) return theme === 'dark' ? '#555' : '#333'
+    return 'var(--grid-cell)'
   }
 
   const clearTimeouts = () => {
@@ -447,15 +447,7 @@ function Pathfinder() {
 
       {/* Stats bar */}
       {stats && (
-        <div style={{
-          marginBottom: '10px',
-          padding: '6px 12px',
-          background: '#f0f0f0',
-          borderRadius: '4px',
-          fontSize: '13px',
-          display: 'flex',
-          gap: '16px'
-        }}>
+        <div className="stats-bar">
           <span>Cells visited: <strong>{stats.visited}</strong></span>
           <span>
             Path length:{' '}
@@ -482,7 +474,7 @@ function Pathfinder() {
                   width: '20px',
                   height: '20px',
                   background: getColor(cell),
-                  border: '0.5px solid #ddd',
+                  border: '0.5px solid var(--grid-border)',
                   cursor: isRunning ? 'not-allowed' : 'pointer',
                   boxSizing: 'border-box',
                   transition: 'background 0.1s'
