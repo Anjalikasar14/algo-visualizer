@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import Pathfinder from './Pathfinder'
+import RaceMode from './RaceMode'
 
 function App() {
   const [array, setArray] = useState([40, 80, 20, 60, 100, 30, 70, 50])
@@ -438,6 +439,9 @@ function App() {
           </div>
         ))}
       </div>
+
+      <hr />
+      <RaceMode theme={theme} />
 
       <hr />
       <Pathfinder theme={theme} />
